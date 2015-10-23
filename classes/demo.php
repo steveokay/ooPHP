@@ -46,4 +46,3 @@ for($id = 0; $id <= 4; $id++){
     echo Address::isValidAddressTypeId($id )? 'Valid' : 'Invalid';
     echo "</div>";
 }
-?>
