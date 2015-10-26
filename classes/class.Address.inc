@@ -36,7 +36,7 @@ class Address {
     //primary key of an address
     protected $_address_id;
     
-    //address tyoe id
+    //address type id
     protected $_address_type_id;
 
     //when the method was created and updated
@@ -125,7 +125,25 @@ class Address {
      * @return string 
      */
     protected function _postal_code_guess() {
-        return 'LOOKUP';   
+        //get an instance of the database
+        $db = Database::getInstance(); 
+        //get connection
+        $mysqli = $db->getConnection();
+        
+        $sql_query  = 'SELECT postal_code ';
+        $sql_query .= 'FROM location ';
+        
+        $city_name  = $mysqli->real_escape_string($this->city_name);
+        $sql_query .= 'WHERE city_name = "' .$city_name . '" ';
+        
+        $subdivision_name = $mysqli->real_escape_string($this->subdivision_name);
+        $sql_query .= 'AND subdivision_name = "' .$subdivision_name . '" ';
+        
+        $result = $mysqli->query($sql_query);
+        
+        if($row = $result->fetch_assoc()){
+            return $row['postal_code'];
+        }
     }
 
     /**

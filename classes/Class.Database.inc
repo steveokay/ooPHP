@@ -20,10 +20,11 @@ class Database{
     }
     
     /**
-     * constructor
+     * constructor for the database object
      */
     public function __construct() {
-        $this->_connection = new msqli('localhost', 'sandbox', 'sandbox', 'sandbox');
+        //new msqli(host,username,password, database);
+        $this->_connection = new mysqli('localhost', 'root', '', 'sandbox');
         //Error Handling
         if(mysqli_connect_error()){
             trigger_error('Failed to Connect to MySQL: ' . mysqli_connect_error(), E_USER_ERROR);
@@ -41,3 +42,4 @@ private function __clone() {}
         return $this->_connection;
     }
 }
+?>
