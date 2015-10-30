@@ -4,7 +4,7 @@
  *
  * @author Stevo
  */
-class Address {
+abstract class Address {
     
     const ADDRESS_TYPE_RESIDENCE = 1;
     const ADDRESS_TYPE_BUSINESS = 2;
@@ -48,6 +48,7 @@ class Address {
      * @param array $data Optional array of property names and values.
      */
     function __construct($data = array()) {
+        $this->_init();
         $this->_time_created = time();
         
         //Ensure that the address can be populated 
@@ -119,6 +120,11 @@ class Address {
     function __toString() {
         return $this->display();
     }
+    
+    /**
+     * force extending classes to implement init method
+     */
+    abstract protected function _init();
     /**
      * Guess the postal code given the subdivision and city name
      * @todo replace with a database lookup.
